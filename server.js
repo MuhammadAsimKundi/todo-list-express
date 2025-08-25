@@ -89,7 +89,9 @@ app.put('/markUnComplete', (request, response) => {
 // })
 
 app.delete('/deleteItem', (request, response) => {
-    db.collection('todos').deleteOne({_id: new ObjectId(request.body.id)})
+    db.collection('todos').deleteOne({_id: new ObjectId(request.body.id)},
+    { $set: { hidden: true } }
+    )
     .then(result => {
         console.log('Todo Deleted')
         response.json('Todo Deleted')

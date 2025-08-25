@@ -52,18 +52,30 @@
 </head>
 <body>
    <h1>Todo List</h1>
-   <ul class="todoItems">
-    <%for(let i=0; i<items.length; i++){ %>
-        <li class="item"  data-id="<%= items[i]._id %>">
-            <%if(items[i].completed == true){%>
-                <span class="completed"><%= items[i].thing %></span>
-            <%}else{%>
-                <span><%= items[i].thing %></span>
-            <%}%>
-            <span class="fa fa-trash"></span>
-        </li>
-    <%}%>
-   </ul>
+    <ul class="todoItems">
+    <% for (let i = 0; i < items.length; i++) { %>
+    
+    <!-- Skip tasks that are soft-deleted (hidden: true) -->
+    <% if (!items[i].hidden) { %> 
+      
+      <!-- Each todo item with a data-id attribute for JS actions -->
+      <li class="item" data-id="<%= items[i]._id %>">
+        
+        <!-- If task is completed, add 'completed' class for styling -->
+        <% if (items[i].completed == true) { %>
+          <span class="completed"><%= items[i].thing %></span>
+        <% } else { %>
+          <!-- Otherwise, show normal task text -->
+          <span><%= items[i].thing %></span>
+        <% } %>
+        
+        <!-- Trash icon for soft-delete; click handled in JS -->
+        <span class="fa fa-trash"></span>
+      </li>
+
+    <% } %>
+    <% } %>
+    </ul>
 
    <h2>Left todo: <%= left %></h2>
 

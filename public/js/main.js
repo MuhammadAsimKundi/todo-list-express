@@ -27,6 +27,7 @@ async function deleteItem() {
         })
         const data = await response.json()
         console.log(data)
+        this.parentNode.remove()
         location.reload()
     } catch (err) {
         console.log(err)
